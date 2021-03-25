@@ -1,5 +1,5 @@
 # Short URL
-> This is a short url app coded symfony framework
+> This is an app that shorts the given url based on your domain name and coded with symfony framework
 
 # Available Functionalities
 - Manage all users
