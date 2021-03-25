@@ -35,13 +35,13 @@ php bin/console doctrine:migrations:migrate
 
 # Screenshots
 ## Homepage
-<img src="https://github.com/eduventy/short-url-SametALMDR/blob/main/screenshots/1.png"> 
+<img src="https://github.com/SametALMDR/short-url/blob/main/screenshots/1.png"> 
 
 ## Admin Homepage
-<img src="https://github.com/eduventy/short-url-SametALMDR/blob/main/screenshots/2.png"> 
+<img src="https://github.com/SametALMDR/short-url/blob/main/screenshots/2.png"> 
 
 ## Admin URLs Page
-<img src="https://github.com/eduventy/short-url-SametALMDR/blob/main/screenshots/3.png"> 
+<img src="https://github.com/SametALMDR/short-url/blob/main/screenshots/3.png"> 
 
 
 
