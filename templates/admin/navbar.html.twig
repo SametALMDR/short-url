@@ -1,0 +1,17 @@
+<div class="admin-navbar">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center" style="min-height: 60px">
+            <div class="col text-right">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle text-uppercase btn-logout" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.name }} {{ app.user.surname }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ path('admin_edit_user',{ id: app.user.id }) }}"><i class="bi bi-person"></i> Account Details</a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="bi bi-power"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

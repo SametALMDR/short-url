@@ -1,0 +1,75 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}View Stats - Admin Panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="summary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="def-cart mt-4">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h4 class="font-weight-bold">View Stats</h4>
+                                    <p>You can view all stats according to url below.</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Browser</th>
+                                        <th>IP Address</th>
+                                        <th>Device</th>
+                                        <th>Resolution</th>
+                                        <th>Locale</th>
+                                        <th>City</th>
+                                        <th>Country</th>
+                                        <th>OS</th>
+                                        <th>Device Brand</th>
+                                        <th>Clicked at</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for stat in stats %}
+                                        <tr>
+                                            <td>{{ stat.browser }}</td>
+                                            <td>{{ stat.ipAddress }}</td>
+                                            <td>{{ stat.device }} </td>
+                                            <td>{{ stat.resolution }} </td>
+                                            <td>{{ stat.locale }} </td>
+                                            <td>{{ stat.city }} </td>
+                                            <td>{{ stat.country }} </td>
+                                            <td>{{ stat.os }} </td>
+                                            <td>{{ stat.deviceBrand }} </td>
+                                            <td>{{ stat.createdat | date('d.m.Y H:i') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "order": [[ 5, "desc" ]]
+            });
+        });
+    </script>
+{% endblock %}

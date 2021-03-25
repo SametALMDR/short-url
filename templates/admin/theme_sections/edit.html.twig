@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Update Page - Admin Panel{% endblock %}
+
+{% block body %}
+    <div class="summary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="def-cart mt-4">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h4 class="font-weight-bold">Update page</h4>
+                                    <p>You can update page information below.</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                {{ form(theme_form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

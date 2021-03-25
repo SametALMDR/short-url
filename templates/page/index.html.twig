@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block header %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% include 'breadcrumb.html.twig' with {'title': page.title ,'description': page.description} %}
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                {{ page.content | raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}

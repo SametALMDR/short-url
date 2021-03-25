@@ -1,0 +1,88 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Users - Admin Panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="summary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="def-cart mt-4">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h4 class="font-weight-bold">Users</h4>
+                                    <p>You can manage all users below.</p>
+                                </div>
+                                <a href="{{ path('admin_create_user') }}" class="btn btn-dark text-white"><i class="bi bi-plus-circle"></i> Create User</a>
+                            </div>
+                            <div class="col-12">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Name - Surname</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Roles</th>
+                                        <th>Active ?</th>
+                                        <th>Creation Date</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>{{ user.name }} {{ user.surname }}</td>
+                                            <td>{{ user.getCUsername() }}</td>
+                                            <td>{{ user.email }} </td>
+                                            <td>
+                                                {% for role in user.roles %}
+                                                    <div>
+                                                        <span class="badge badge-warning">
+                                                            {{ role }}
+                                                        </span>
+                                                    </div>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% if user.isactive == 0 %}
+                                                    <span class="badge badge-danger">No</span>
+                                                {% else %}
+                                                    <span class="badge badge-success">Yes</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ user.createdat | date('d.m.Y H:i') }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_view_user_short_links',{ id: user.id }) }}" class="btn btn-sm btn-secondary m-1"><i class="bi bi-eye text-white"></i></a>
+                                                <a href="{{ path('admin_edit_user',{ id: user.id }) }}" class="btn btn-sm btn-success m-1"><i class="bi bi-pencil text-white"></i></a>
+                                                <a href="{{ path('admin_del_user',{ id: user.id }) }}" class="btn btn-sm btn-danger m-1"><i class="bi bi-trash text-white"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "order": [[ 5, "desc" ]]
+            });
+        });
+    </script>
+{% endblock %}

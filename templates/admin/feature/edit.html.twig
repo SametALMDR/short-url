@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Feature - Admin Panel{% endblock %}
+
+{% block body %}
+    <div class="summary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="def-cart mt-4">
+                        <h4 class="font-weight-bold">Edit Feature</h4>
+                        <p>You can edit feature information below.</p>
+                        {{ form(feature_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

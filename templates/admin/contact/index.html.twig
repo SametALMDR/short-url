@@ -1,0 +1,90 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Contacts - Admin Panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="summary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="def-cart mt-4">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h4 class="font-weight-bold">Contact Messages</h4>
+                                    <p>You can manage your contact messages below.</p>
+                                </div>
+                                <div class="">
+                                    <a href="{{ path('admin_filter_contact',{ type : 'read', val : '1' }) }}" class="btn btn-dark text-white">Filter by Read</a>
+                                    <a href="{{ path('admin_filter_contact',{ type : 'read', val : '0' }) }}" class="btn btn-dark text-white">Filter by Unread</a>
+                                    <a href="{{ path('admin_filter_contact',{ type : 'answered', val : '1' }) }}" class="btn btn-dark text-white">Filter by Answered</a>
+                                    <a href="{{ path('admin_filter_contact',{ type : 'answered', val : '0' }) }}" class="btn btn-dark text-white">Filter by Unanswered</a>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Name - Surname</th>
+                                        <th>Email</th>
+                                        <th>Message</th>
+                                        <th>Readed?</th>
+                                        <th>Answered?</th>
+                                        <th>Creation Date</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for contact in contacts %}
+                                        <tr>
+                                            <td>{{ contact.name }} {{ contact.surname }}</td>
+                                            <td>{{ contact.email }}</td>
+                                            <td>{{ contact.message | slice(0, 35) }}{% if contact.message | length > 35 %}...{% endif %}</td>
+                                            <td>
+                                                {% if contact.isread == 0 %}
+                                                    <span class="badge badge-danger">No</span>
+                                                {% else %}
+                                                    <span class="badge badge-success">Yes</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if contact.isanswered == 0 %}
+                                                    <span class="badge badge-danger">No</span>
+                                                {% else %}
+                                                    <span class="badge badge-success">Yes</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ contact.createdat | date('d.m.Y H:i') }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_edit_contact',{ id: contact.id }) }}" class="btn btn-sm btn-success m-1"><i class="bi bi-pencil text-white"></i></a>
+                                                <a href="{{ path('admin_del_contact',{ id: contact.id }) }}" class="btn btn-sm btn-danger m-1"><i class="bi bi-trash text-white"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "order": [[ 5, "desc" ]]
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - User Panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block header %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'breadcrumb.html.twig' with {'title': 'User Panel','description':'Hello ' ~ app.user.name ~ ', Welcome to your user panel'} %}
+
+    {% include 'user/navbar.html.twig' %}
+
+    <section class="panel-wrapper mb-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h4 class="font-weight-bold">Shortened Links</h4>
+                </div>
+                <div class="col-12">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                        <tr class="text-uppercase">
+                            <th>Url</th>
+                            <th>Shortened Url</th>
+                            <th>Click Count</th>
+                            <th>Public</th>
+                            <th>Creation Date</th>
+                            <th>Expiration Date</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for url in urls %}
+                        <tr>
+                            <td>{{ url.url }}</td>
+                            <td>{{ web_root }}/{{ url.urlhash }}</td>
+                            <td>{{ url.clickcount }}</td>
+                            <td>
+                                {% if url.ispublic == 1 %}
+                                    <span class="badge badge-success">Yes</span>
+                                {% else %}
+                                    <span class="badge badge-success">No</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ url.createdat | date("d.m.Y H:i") }}</td>
+                            <td class="{% if url.expiredat < date() %}expired{% endif %}">{{ url.expiredat() | date("d.m.Y H:i") }}</td>
+                            <td>
+                                <a href="{{ path('user_url',{ urlid : url.getId() }) }}" class="btn btn-blue">Stats</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "order": [[ 2, "desc" ]]
+        });
+    });
+</script>
+{% endblock %}
+

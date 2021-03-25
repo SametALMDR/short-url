@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Urls - User Panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block header %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'breadcrumb.html.twig' with {'title': 'User Panel','description':'Hello ' ~ app.user.name ~ ', Welcome to your user panel'} %}
+
+    {% include 'user/navbar.html.twig' %}
+
+    <section class="panel-wrapper mb-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h4 class="font-weight-bold">{{ url.getUrl() }}</h4>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 Browser</h5>
+                        {% for browser in top_browsers %}
+                            <div class="stat-row">{{ browser.browser }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 Device</h5>
+                        {% for device in top_devices %}
+                            <div class="stat-row">{{ device.device }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 Country</h5>
+                        {% for country in top_countries %}
+                            <div class="stat-row">{{ country.country }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 City</h5>
+                        {% for city in top_cities %}
+                            <div class="stat-row">{{ city.city }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 Device Brands</h5>
+                        {% for brand in top_device_brands %}
+                            {% if brand.device_brand != "unknown" %}
+                                <div class="stat-row">{{ brand.device_brand }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 Resolution</h5>
+                        {% for resolution in top_resolutions %}
+                            <div class="stat-row">{{ resolution.resolution }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="stats-card">
+                        <h5 class="font-weight-bold">Top 5 OS</h5>
+                        {% for os in top_os %}
+                            <div class="stat-row">{{ os.os }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "order": [[ 7, "desc" ]]
+            });
+        });
+    </script>
+{% endblock %}
+
